@@ -1,9 +1,6 @@
 module SessionHelper
-  PASSWORD_DIGEST = ENV["PASSWORD_DIGEST"]
-  SESSION_TOKEN = ENV["SESSION_TOKEN"]
-  SESSION_DIGEST = ENV["SESSION_DIGEST"]
 
-  def digest(string)
+  def get_digest(string)
     salt = "74b87337454200d4d33f80c4663dc5e5"
     string_digest = Digest::MD5.hexdigest(string)
     salt_digest = Digest::MD5.hexdigest(salt)
@@ -15,13 +12,13 @@ module SessionHelper
   end
 
   def authenticated?(token, digest)
-    digest == digest(token)
+    digest == get_digest(token)
   end
 
   def log_in
     Session.all.destroy_all if Session.all.count > 0
     session_token = new_token
-    session_obj = Session.create(digest: digest(session_token))
+    session_obj = Session.create(digest: get_digest(session_token))
     session[:id] = session_obj.id
     session[:token] = session_token
   end

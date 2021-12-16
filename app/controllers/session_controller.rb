@@ -2,7 +2,7 @@ class SessionController < ApplicationController
   PASSWORD_DIGEST = ENV["PASSWORD_DIGEST"]
 
   def new
-    flash[:notice] = PASSWORD_DIGEST
+    
   end
 
   def create
