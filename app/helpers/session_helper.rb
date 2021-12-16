@@ -4,8 +4,10 @@ module SessionHelper
   SESSION_DIGEST = ENV["SESSION_DIGEST"]
 
   def digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
+    salt = "74b87337454200d4d33f80c4663dc5e5"
+    string_digest = Digest::MD5.hexdigest(string)
+    salt_digest = Digest::MD5.hexdigest(salt)
+    Digest::MD5.hexdigest(string_digest + salt_digest)
   end
 
   def new_token
@@ -13,7 +15,7 @@ module SessionHelper
   end
 
   def authenticated?(token, digest)
-    BCrypt::Password.new(digest).is_password?(token)
+    digest == digest(token)
   end
 
   def log_in
