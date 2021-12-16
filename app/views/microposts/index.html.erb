@@ -1,0 +1,23 @@
+<% @micropost.errors.full_messages.each do |message| %>
+  <%= message %>
+<% end %>
+
+<%= form_with(model: @micropost, local: true) do |f| %>
+  <%= f.label :weight %>
+  <%= f.select :weight, form_options("weight") ,{ include_blank: "Please choose the weight."}, { class: "" , required: true }  %>
+  <%= f.label :time %>
+  <%= f.select :time, form_options("time") ,{ include_blank: "Please choose the times."}, { class: "" , required: true }  %>
+  <%= f.label :comment, "If you have some comments, please write them here." %>
+  <%= f.text_field :comment, class: "" %>
+  <%= f.submit "Post" %>
+<% end %>
+
+<% @dayposts.each do |daypost| %>
+  <p>------------------------------</p> 
+  <%= daypost[0].created_at %>
+  <% daypost.each do |micropost| %>
+    <br>
+    <%= micropost.weight %>kgの重さを<%= micropost.time %>回持ち上げました。
+  <% end %>
+<% end %>
+

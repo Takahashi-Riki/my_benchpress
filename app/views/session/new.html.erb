@@ -1,0 +1,6 @@
+<%= form_with(url: login_path, local: true) do |f| %>
+  <%= f.label :password %>
+  <%= f.password_field :password, class: '' %>
+
+  <%= f.submit "Log in" %>
+<% end %>

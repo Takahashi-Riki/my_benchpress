@@ -1,7 +1,7 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+times_list = [1, 3, 5, 10, 15]
+
+100.times do |i|
+  micropost = Micropost.create(weight: 60+i, time: times_list[i%5], comment: "あ"*i)
+  micropost.created_at = Time.zone.now.ago((i/4).days)
+  micropost.save
+end
