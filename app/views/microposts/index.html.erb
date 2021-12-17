@@ -1,23 +1,115 @@
-<% @micropost.errors.full_messages.each do |message| %>
-  <%= message %>
+<%= form_with(model: @micropost, local: true, id: "micropost-form") do |f| %>
+  <p id="micropost-form-title">Make a log</p>
+  <div class="form-question-wrapper">
+    <%= f.label :weight, class: "form-label" %><br>
+    <%= f.select :weight, form_options("weight") ,{ include_blank: "Please choose the weight."}, { class: "form-input" }  %>
+  </div>
+  <div class="form-question-wrapper">
+    <%= f.label :time, class: "form-label" %><br>
+    <%= f.select :time, form_options("time") ,{ include_blank: "Please choose the times."}, { class: "form-input" , required: true }  %>
+  </div>
+  <div class="form-question-wrapper">
+    <%= f.label :comment, "Comment(optional)", class: "form-label" %><br>
+    <%= f.text_field :comment, class: "form-input" %>
+  </div>
+  <%= f.submit "Post", class:"form-button" %>
 <% end %>
 
-<%= form_with(model: @micropost, local: true) do |f| %>
-  <%= f.label :weight %>
-  <%= f.select :weight, form_options("weight") ,{ include_blank: "Please choose the weight."}, { class: "" , required: true }  %>
-  <%= f.label :time %>
-  <%= f.select :time, form_options("time") ,{ include_blank: "Please choose the times."}, { class: "" , required: true }  %>
-  <%= f.label :comment, "If you have some comments, please write them here." %>
-  <%= f.text_field :comment, class: "" %>
-  <%= f.submit "Post" %>
-<% end %>
-
-<% @dayposts.each do |daypost| %>
-  <p>------------------------------</p> 
-  <%= daypost[0].created_at %>
-  <% daypost.each do |micropost| %>
-    <br>
-    <%= micropost.weight %>kgの重さを<%= micropost.time %>回持ち上げました。
+<% @dayposts.each_with_index do |daypost, i| %>
+  <% if daypost.size > 0 %>
+    <div class="daypost" id="daypost-<%=i%>">
+      <p class="daypost-date">Log on <%= daypost[0].created_at.strftime("%Y/%m/%d") %></p>
+        <input type="hidden" id="chart-data-<%=i%>" data-content="<%= daypost.to_json %>">
+        <p class="daypost-content-title">Chart</p>
+        <div class="chart">
+          <canvas class="canvas" id="canvas-<%=i%>"></canvas>
+        </div>
+        <p class="daypost-content-title">Logs</p>
+        <% daypost.each_with_index do |micropost, k| %>
+          <p class="log-content"><%= k+1 %> | <%= micropost.weight %>kg × <%= micropost.time %> times. <%= link_to "destroy", micropost_path(micropost) , method: :delete, class: "log-destroy" %></p>
+        <% end %>  
+    </div>
   <% end %>
 <% end %>
 
+<script>
+
+window.onload = function(){
+  const dayposts = document.getElementsByClassName("daypost");
+
+  for(let daypost of dayposts){
+    const daypost_id =  daypost.id.replace("daypost-","");
+    //console.log(daypost_id)
+    const daypost_data = JSON.parse(document.getElementById(`chart-data-${daypost_id}`).dataset.content);
+    console.log(daypost_data);
+    const weight_data = []
+    const time_data = []
+    for(let micropost_data of daypost_data){
+      weight_data.push(micropost_data.weight);
+      time_data.push(micropost_data.time);
+    }
+    console.log(weight_data);
+
+    const barChartData = {
+      labels: [...Array(daypost_data.length).keys()].map(i => ++i),
+      datasets: [
+      {
+        type: "line",
+        label: "Left: Weight",
+        data: weight_data,
+        borderColor : "rgba(54,164,235,0.5)",
+        pointBackgroundColor : "rgba(54,164,235,0.5)",
+        fill: false,
+        yAxisID: "y-axis-1"
+      },
+      {
+        type: "bar",
+        label: "Right: Time",
+        data: time_data,
+        borderColor : "rgba(254,97,132,0.8)",
+        backgroundColor : "rgba(254,97,132,0.8)",
+        yAxisID: "y-axis-2"
+      },
+      ],
+    };
+
+    const complexChartOption = {
+      responsive: true,
+      scales: {
+        yAxes: [{
+            id: "y-axis-1",
+            type: "linear", 
+            position: "left",
+            ticks: {
+              max: Math.max(...weight_data)+5,
+              min: Math.min(...weight_data)-5,
+              stepSize: 2.5
+            },
+        }, {
+            id: "y-axis-2",
+            type: "linear", 
+            position: "right",
+            ticks: {
+                max: Math.max(...time_data)+2,
+                min: 0,
+                stepSize: 1
+            },
+            gridLines: {
+                drawOnChartArea: false, 
+            },
+        }],
+      }
+    };
+
+    ctx = document.getElementById(`canvas-${daypost_id}`).getContext("2d");
+
+    new Chart(ctx, {
+      type: "bar",
+      data: barChartData,
+      options: complexChartOption,
+    });
+  }
+}
+
+
+</script>

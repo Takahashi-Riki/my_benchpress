@@ -7,13 +7,32 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Chart.js -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.min.js"></script>
   </head>
 
   <body>
-    <% if flash[:notice] %>
-      <%= flash[:notice] %>
-    <% end %>
-    <%= link_to "logout", logout_path, method: :delete %>
+    <div id="messages">
+      <% if flash[:notice] %>
+        <%= flash[:notice] %>
+      <% end %>
+      <% if @micropost %>
+        <% @micropost.errors.full_messages.each do |message| %>
+          <%= message %>
+        <% end %>
+      <% end %>
+    </div>
+    <header>
+      <span id="title">
+        My Benchpress
+      </span>
+      <span id="logout">
+        <% if logged_in? %>
+          <%= link_to "logout", logout_path, method: :delete %>
+        <% end %>
+      </span>
+    </header>
     <%= yield %>
   </body>
 </html>

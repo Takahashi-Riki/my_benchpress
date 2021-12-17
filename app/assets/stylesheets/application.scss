@@ -1,0 +1,112 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "variables";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  min-width: 600px;
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+  color: $mainFontColor;
+}
+
+header {
+  height: 120px;
+  margin-bottom: 10px;
+  padding: 0px 10px;
+  box-shadow: 0px 5px 10px -5px rgba(116, 116, 116, 0.5);
+  line-height: 120px;
+}
+
+#title{
+  font-size: 80px;
+  font-weight: bold;
+  color: $site-title;
+}
+
+#logout{
+  float: right;
+  font-size: 50px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+#logout a{
+  text-decoration: none;
+  color: #478d96;
+  border-bottom: solid 3px #478d96;
+}
+
+#micropost-form{
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0px 5px 10px -5px rgba(116, 116, 116, 0.5);
+}
+
+#micropost-form-title{
+  font-size: 50px;
+  color: $title;
+}
+
+.form-label{
+  font-size: 40px;
+  color: $mainFontColor;
+}
+
+.form-input{
+  height: 50px;
+  width: 100%;
+  font-size: 30px;
+}
+
+.form-button{
+  margin-top: 15px;
+  height: 50px;
+  width : 100%;
+  font-size: 40px;
+}
+
+.daypost{
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0px 5px 10px -5px rgba(116, 116, 116, 0.5);
+}
+
+.daypost-date{
+  font-size: 50px;
+  font-weight: bold;
+  color: #478d96;
+}
+
+.daypost-content-title{
+  font-size: 30px;
+  color: #478d96;
+}
+
+.log-content{
+  font-size: 20px;
+  color: #478d96;
+}
+
+.log-destroy{
+  color: #478d96;
+}

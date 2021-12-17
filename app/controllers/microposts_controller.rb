@@ -3,7 +3,6 @@ class MicropostsController < ApplicationController
 
   def index
     @micropost = Micropost.new
-    @microposts = Micropost.all
     @dayposts = get_dayposts(Micropost.all)
   end
 
@@ -13,13 +12,14 @@ class MicropostsController < ApplicationController
       flash[:notice] = "saved!"
       redirect_to root_path
     else
+      @dayposts = get_dayposts(Micropost.all)
       render "index"
     end
   end
 
   def destroy
     Micropost.find_by(params[:id]).destroy
-    redirect_to microposts_url
+    redirect_to root_path
   end
 
   private
