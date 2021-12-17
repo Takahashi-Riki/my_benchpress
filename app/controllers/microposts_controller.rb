@@ -18,7 +18,7 @@ class MicropostsController < ApplicationController
   end
 
   def destroy
-    Micropost.find_by(params[:id]).destroy
+    Micropost.find(params[:id]).destroy
     redirect_to root_path
   end
 
