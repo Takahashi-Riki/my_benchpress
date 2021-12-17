@@ -26,8 +26,13 @@
         </div>
         <p class="daypost-content-title">Logs</p>
         <% daypost.each_with_index do |micropost, k| %>
-          <p class="log-content"><%= k+1 %> | <%= micropost.weight %>kg × <%= micropost.time %> times. <%= link_to "destroy", micropost_path(micropost) , method: :delete, class: "log-destroy" %></p>
-        <% end %>  
+          <p class="log-content">
+            <%= k+1 %>. <%= daypost[0].created_at.strftime("%H:%M") %><br>
+            <%= micropost.weight %>kg × <%= micropost.time %> times. <br>
+            <%= micropost.comment %>
+            <%= link_to "destroy", micropost_path(micropost) , method: :delete, class: "log-destroy" %>
+          </p>
+        <% end %>
     </div>
   <% end %>
 <% end %>

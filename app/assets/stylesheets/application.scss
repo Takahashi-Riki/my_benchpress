@@ -103,10 +103,15 @@ header {
 }
 
 .log-content{
-  font-size: 20px;
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0px 5px 10px -5px rgba(116, 116, 116, 0.5);
+  font-size: 25px;
   color: #478d96;
 }
 
 .log-destroy{
   color: #478d96;
+  font-size: 25px;
 }
