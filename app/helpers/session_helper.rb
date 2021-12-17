@@ -16,7 +16,7 @@ module SessionHelper
   end
 
   def log_in
-    Session.all.destroy_all if Session.all.count > 0
+    #Session.all.destroy_all if Session.all.count > 0
     session_token = new_token
     session_obj = Session.create(digest: get_digest(session_token))
     session[:id] = session_obj.id
