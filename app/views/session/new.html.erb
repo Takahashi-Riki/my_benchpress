@@ -1,6 +1,13 @@
 <%= form_with(url: login_path, local: true) do |f| %>
-  <%= f.label :password %>
-  <%= f.password_field :password, class: '' %>
+  <p class="login-input-label" ><%= f.label :password %></p>
+  <p class="login-input-wrapper"><%= f.password_field :password, class: 'login-input' %></p>
 
-  <%= f.submit "Log in" %>
+  <p class="login-button-wrapper"><%= f.submit "Log in", class: "login-button" %></p>
+<% end %>
+
+<%= form_with(url: login_path, local: true) do |f| %>
+  <p class="login-input-label" ><%= f.label :password_readonly, "Password(Read only)" %></p>
+  <p class="login-input-wrapper"><%= f.password_field :password_readonly, class: 'login-input' %></p>
+
+  <p class="login-button-wrapper"><%= f.submit "Show", class: "login-button" %></p>
 <% end %>

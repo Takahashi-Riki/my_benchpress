@@ -30,7 +30,7 @@
             <%= k+1 %>. <%= daypost[0].created_at.strftime("%H:%M") %><br>
             <%= micropost.weight %>kg × <%= micropost.time %> times. <br>
             <%= micropost.comment %>
-            <%= link_to "destroy", micropost_path(micropost) , method: :delete, class: "log-destroy" %>
+            <%= link_to "delete", micropost_path(micropost) , method: :delete, data: { confirm: "Are you sure you want to delete this?" }, class: "log-destroy" %>
           </p>
         <% end %>
     </div>

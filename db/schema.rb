@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_16_045953) do
+ActiveRecord::Schema.define(version: 2021_12_18_084734) do
 
   create_table "microposts", force: :cascade do |t|
-    t.integer "weight", null: false
+    t.float "weight", null: false
     t.integer "time", null: false
     t.string "comment"
     t.datetime "created_at", precision: 6, null: false

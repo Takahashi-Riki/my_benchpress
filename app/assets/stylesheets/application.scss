@@ -115,3 +115,32 @@ header {
   color: #478d96;
   font-size: 25px;
 }
+
+.login-input-label{
+  font-size: 50px;
+  color: $title;
+  text-align: center;
+}
+
+.login-input-wrapper{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.login-input {
+  width: 100%;
+  height: 50px;
+}
+
+.login-button-wrapper{
+  margin: 0 auto;
+  width: 80%;
+}
+
+.login-button{
+  margin-top: 15px;
+  margin-bottom: 100px;
+  height: 50px;
+  width: 100%;
+  font-size: 40px;
+}
