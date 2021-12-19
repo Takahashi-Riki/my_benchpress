@@ -13,16 +13,6 @@
   </head>
 
   <body>
-    <div id="messages">
-      <% if flash[:notice] %>
-        <%= flash[:notice] %>
-      <% end %>
-      <% if @micropost %>
-        <% @micropost.errors.full_messages.each do |message| %>
-          <%= message %>
-        <% end %>
-      <% end %>
-    </div>
     <% if logged_in? && !admin? %>
       <div id="status-wrapper">
         <p id="status">You logged in as a guest user</p>

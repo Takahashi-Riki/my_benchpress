@@ -24,10 +24,15 @@ module MicropostsHelper
     dayposts = []
     while true
       break if Micropost.where("created_at <= ?", today.end_of_day).count == 0
-      daypost = Micropost.where("(created_at > ?) AND (created_at <= ?)", today.midnight , today.end_of_day)
+      daypost = Micropost.where("(created_at > ?) AND (created_at <= ?)", today.midnight , today.end_of_day).order(:order)
       dayposts << daypost
       today = today.ago(1.days)
     end
     return dayposts
+  end
+
+  def get_order(date)
+    microposts = Micropost.where("(created_at > ?) AND (created_at <= ?)", date.midnight , date.end_of_day).order(:order)
+    microposts.count > 0 ? microposts.last.order+1 : 1
   end
 end
