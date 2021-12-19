@@ -9,8 +9,9 @@ class MicropostsController < ApplicationController
 
   def create
     @micropost = Micropost.new(micropost_params)
+    order = get_order(Time.zone.now)
+    @micropost.order = order
     if @micropost.save
-      flash[:notice] = "saved!"
       redirect_to root_path
     else
       @dayposts = get_dayposts(Micropost.all)

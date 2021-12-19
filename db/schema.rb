@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_19_012629) do
+ActiveRecord::Schema.define(version: 2021_12_19_070200) do
 
   create_table "microposts", force: :cascade do |t|
     t.float "weight", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_12_19_012629) do
     t.string "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order", null: false
   end
 
   create_table "sessions", force: :cascade do |t|
