@@ -23,7 +23,7 @@ module MicropostsHelper
     today = Time.zone.now
     dayposts = []
     while true
-      break if Micropost.where("created_at <= ?", today).count == 0
+      break if Micropost.where("created_at <= ?", today.end_of_day).count == 0
       daypost = Micropost.where("(created_at > ?) AND (created_at <= ?)", today.midnight , today.end_of_day)
       dayposts << daypost
       today = today.ago(1.days)
