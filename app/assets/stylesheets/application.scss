@@ -32,13 +32,26 @@ body{
 header {
   height: 120px;
   margin-bottom: 10px;
-  padding: 0px 10px;
+  padding: 0px 20px;
   box-shadow: 0px 5px 10px -5px rgba(116, 116, 116, 0.5);
   line-height: 120px;
 }
 
+#status-wrapper{
+  width:100%;
+  background-color: $background;
+}
+
+#status{
+  padding: 10px 0;
+  text-align: center;
+  color: $white;
+  font-weight: bold;
+  font-size: $h3;
+}
+
 #title{
-  font-size: 80px;
+  font-size: $h1;
   font-weight: bold;
   color: $site-title;
 }
@@ -52,8 +65,8 @@ header {
 
 #logout a{
   text-decoration: none;
-  color: #478d96;
-  border-bottom: solid 3px #478d96;
+  color: $subFontColor;
+  border-bottom: solid 3px $subFontColor;
 }
 
 #micropost-form{
@@ -63,61 +76,66 @@ header {
 }
 
 #micropost-form-title{
-  font-size: 50px;
+  font-size: $h2;
+  font-weight: bold;
   color: $title;
 }
 
 .form-label{
-  font-size: 40px;
+  font-size: $h2;
   color: $mainFontColor;
 }
 
 .form-input{
-  height: 50px;
+  height: 70px;
   width: 100%;
-  font-size: 30px;
+  font-size: $h2;
+  color: $mainFontColor;
 }
 
 .form-button{
   margin-top: 15px;
-  height: 50px;
+  height: 70px;
   width : 100%;
-  font-size: 40px;
+  font-size: $h2;
+  color: $mainFontColor;
 }
 
 .daypost{
+  width: 100%;
   margin: 10px;
   padding: 10px;
   box-shadow: 0px 5px 10px -5px rgba(116, 116, 116, 0.5);
 }
 
 .daypost-date{
-  font-size: 50px;
+  font-size: $h2;
   font-weight: bold;
-  color: #478d96;
+  color: $subFontColor;
 }
 
 .daypost-content-title{
-  font-size: 30px;
-  color: #478d96;
+  font-weight: bold;
+  font-size: $h3;
+  color: $subFontColor;
 }
 
 .log-content{
-  width: 100%;
-  margin: 10px;
+  width: 97%;
+  margin: 10px auto;
   padding: 10px;
   box-shadow: 0px 5px 10px -5px rgba(116, 116, 116, 0.5);
-  font-size: 25px;
-  color: #478d96;
+  font-size: $h3;
+  color: $subFontColor;
 }
 
 .log-destroy{
-  color: #478d96;
-  font-size: 25px;
+  color: $subFontColor;
+  font-size: $h3;
 }
 
 .login-input-label{
-  font-size: 50px;
+  font-size: $h2;
   color: $title;
   text-align: center;
 }
@@ -129,7 +147,8 @@ header {
 
 .login-input {
   width: 100%;
-  height: 50px;
+  height: 70px;
+  font-size: $h2;
 }
 
 .login-button-wrapper{
@@ -140,7 +159,8 @@ header {
 .login-button{
   margin-top: 15px;
   margin-bottom: 100px;
-  height: 50px;
+  height: 70px;
   width: 100%;
-  font-size: 40px;
+  font-size: $h2;
+  color: $mainFontColor;
 }

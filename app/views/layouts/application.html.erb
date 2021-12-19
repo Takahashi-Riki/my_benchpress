@@ -23,6 +23,11 @@
         <% end %>
       <% end %>
     </div>
+    <% if logged_in? && !admin? %>
+      <div id="status-wrapper">
+        <p id="status">You logged in as a guest user</p>
+      </div>
+    <% end %>
     <header>
       <span id="title">
         My Benchpress

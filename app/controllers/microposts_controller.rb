@@ -1,5 +1,6 @@
 class MicropostsController < ApplicationController
   before_action :check_login
+  before_action :check_admin, only: [:create, :destroy]
 
   def index
     @micropost = Micropost.new
@@ -30,5 +31,9 @@ class MicropostsController < ApplicationController
 
     def check_login
       redirect_to login_path if !logged_in?
+    end
+
+    def check_admin
+      redirect_to login_path if !admin?
     end
 end

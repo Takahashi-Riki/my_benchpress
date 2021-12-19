@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_18_084734) do
+ActiveRecord::Schema.define(version: 2021_12_19_012629) do
 
   create_table "microposts", force: :cascade do |t|
     t.float "weight", null: false
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2021_12_18_084734) do
     t.string "digest", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "admin", default: false
   end
 
 end

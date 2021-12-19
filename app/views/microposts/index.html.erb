@@ -1,18 +1,20 @@
-<%= form_with(model: @micropost, local: true, id: "micropost-form") do |f| %>
-  <p id="micropost-form-title">Make a log</p>
-  <div class="form-question-wrapper">
-    <%= f.label :weight, class: "form-label" %><br>
-    <%= f.select :weight, form_options("weight") ,{ include_blank: "Please choose the weight."}, { class: "form-input" }  %>
-  </div>
-  <div class="form-question-wrapper">
-    <%= f.label :time, class: "form-label" %><br>
-    <%= f.select :time, form_options("time") ,{ include_blank: "Please choose the times."}, { class: "form-input" , required: true }  %>
-  </div>
-  <div class="form-question-wrapper">
-    <%= f.label :comment, "Comment(optional)", class: "form-label" %><br>
-    <%= f.text_field :comment, class: "form-input" %>
-  </div>
-  <%= f.submit "Post", class:"form-button" %>
+<% if admin? %>
+  <%= form_with(model: @micropost, local: true, id: "micropost-form") do |f| %>
+    <p id="micropost-form-title">Make a log</p>
+    <div class="form-question-wrapper">
+      <%= f.label :weight, class: "form-label" %><br>
+      <%= f.select :weight, form_options("weight") ,{ include_blank: "Please choose the weight."}, { class: "form-input" }  %>
+    </div>
+    <div class="form-question-wrapper">
+      <%= f.label :time, class: "form-label" %><br>
+      <%= f.select :time, form_options("time") ,{ include_blank: "Please choose the times."}, { class: "form-input" , required: true }  %>
+    </div>
+    <div class="form-question-wrapper">
+      <%= f.label :comment, "Comment(optional)", class: "form-label" %><br>
+      <%= f.text_field :comment, class: "form-input" %>
+    </div>
+    <%= f.submit "Post", class:"form-button" %>
+  <% end %>
 <% end %>
 
 <% @dayposts.each_with_index do |daypost, i| %>
@@ -27,10 +29,11 @@
         <p class="daypost-content-title">Logs</p>
         <% daypost.each_with_index do |micropost, k| %>
           <p class="log-content">
-            <%= k+1 %>. <%= daypost[0].created_at.strftime("%H:%M") %><br>
-            <%= micropost.weight %>kg × <%= micropost.time %> times. <br>
+            <%= k+1 %>. <%= micropost.weight %>kg × <%= micropost.time %> times. <br>
             <%= micropost.comment %>
-            <%= link_to "delete", micropost_path(micropost) , method: :delete, data: { confirm: "Are you sure you want to delete this?" }, class: "log-destroy" %>
+            <% if admin? %>
+              <%= link_to "delete", micropost_path(micropost) , method: :delete, data: { confirm: "Are you sure you want to delete this?" }, class: "log-destroy" %>
+            <% end %>
           </p>
         <% end %>
     </div>
@@ -44,7 +47,6 @@ window.onload = function(){
 
   for(let daypost of dayposts){
     const daypost_id =  daypost.id.replace("daypost-","");
-    //console.log(daypost_id)
     const daypost_data = JSON.parse(document.getElementById(`chart-data-${daypost_id}`).dataset.content);
     console.log(daypost_data);
     const weight_data = []
@@ -64,6 +66,7 @@ window.onload = function(){
         data: weight_data,
         borderColor : "rgba(54,164,235,0.5)",
         pointBackgroundColor : "rgba(54,164,235,0.5)",
+        pointRadius: 8,
         fill: false,
         yAxisID: "y-axis-1"
       },

@@ -15,9 +15,9 @@ module SessionHelper
     digest == get_digest(token)
   end
 
-  def log_in
+  def log_in(login_as_admin)
     session_token = new_token
-    session_obj = Session.create(digest: get_digest(session_token))
+    session_obj = Session.create(digest: get_digest(session_token), admin: login_as_admin)
     session[:id] = session_obj.id
     session[:token] = session_token
   end
@@ -33,6 +33,10 @@ module SessionHelper
   def logged_in?
     return false if !sessions_exist?
     authenticated?(session[:token], current_session.digest)
+  end
+
+  def admin?
+    Session.find(session[:id]).admin
   end
 
   def log_out
