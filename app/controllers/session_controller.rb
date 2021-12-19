@@ -2,7 +2,7 @@ class SessionController < ApplicationController
   PASSWORD_DIGEST = ENV["PASSWORD_DIGEST"]
   PASSWORD_READONLY_DIGEST = ENV["PASSWORD_READONLY_DIGEST"]
 
-  before_action :check_not_login
+  before_action :check_not_login, only: [:new, :create]
 
   def new
     

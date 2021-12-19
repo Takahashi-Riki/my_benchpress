@@ -48,16 +48,14 @@ window.onload = function(){
   for(let daypost of dayposts){
     const daypost_id =  daypost.id.replace("daypost-","");
     const daypost_data = JSON.parse(document.getElementById(`chart-data-${daypost_id}`).dataset.content);
-    console.log(daypost_data);
     const weight_data = []
     const time_data = []
     for(let micropost_data of daypost_data){
       weight_data.push(micropost_data.weight);
       time_data.push(micropost_data.time);
     }
-    console.log(weight_data);
 
-    const barChartData = {
+    const chartData = {
       labels: [...Array(daypost_data.length).keys()].map(i => ++i),
       datasets: [
       {
@@ -113,7 +111,7 @@ window.onload = function(){
 
     new Chart(ctx, {
       type: "bar",
-      data: barChartData,
+      data: chartData,
       options: complexChartOption,
     });
   }

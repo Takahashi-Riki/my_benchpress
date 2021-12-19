@@ -1,9 +1,9 @@
 module SessionHelper
+  SALT = ENV["SALT"]
 
   def get_digest(string)
-    salt = "74b87337454200d4d33f80c4663dc5e5"
     string_digest = Digest::MD5.hexdigest(string)
-    salt_digest = Digest::MD5.hexdigest(salt)
+    salt_digest = Digest::MD5.hexdigest(SALT)
     Digest::MD5.hexdigest(string_digest + salt_digest)
   end
 
