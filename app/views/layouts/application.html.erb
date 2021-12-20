@@ -20,9 +20,7 @@
     <% end %>
     <header>
       <%= image_tag "logo.png", id: "logo-image" %>
-      <span id="title">
-        My Benchpress
-      </span>
+      <span id="title">My Benchpress</span>
       <span id="logout">
         <% if logged_in? %>
           <%= link_to "logout", logout_path, method: :delete %>
