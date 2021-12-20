@@ -1,7 +1,7 @@
 class SessionController < ApplicationController
   PASSWORD_DIGEST = ENV["PASSWORD_DIGEST"]
   PASSWORD_READONLY_DIGEST = ENV["PASSWORD_READONLY_DIGEST"]
-
+  #before_action :destroy_old_session, [:new]
   before_action :check_not_login, only: [:new, :create]
 
   def new
@@ -29,5 +29,9 @@ class SessionController < ApplicationController
 
     def check_not_login
       redirect_to root_path if logged_in?
+    end
+
+    def destroy_old_session
+      #get_old_session.destroy_all
     end
 end

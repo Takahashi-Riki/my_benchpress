@@ -10,11 +10,11 @@
       <%= f.select :time, form_options("time") ,{ include_blank: "Please choose the times."}, { class: "form-input" , required: true }  %>
     </div>
     <div class="form-question-wrapper">
-      <%= f.label :comment, "Comment(optional)", class: "form-label" %><br>
+      <%= f.label :comment, "Comment (optional)", class: "form-label" %><br>
       <%= f.text_field :comment, class: "form-input" %>
     </div>
     <div class="form-question-wrapper">
-      <%= f.label :created_at, "Date", class: "form-label" %><br>
+      <%= f.label :created_at, "Date (optional)", class: "form-label" %><br>
       <%= f.date_select :created_at, lang: "en", class: "form-input" %>
     </div>
     <%= f.submit "Post", class:"form-button" %>
