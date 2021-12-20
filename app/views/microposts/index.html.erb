@@ -13,6 +13,10 @@
       <%= f.label :comment, "Comment(optional)", class: "form-label" %><br>
       <%= f.text_field :comment, class: "form-input" %>
     </div>
+    <div class="form-question-wrapper">
+      <%= f.label :created_at, "Date", class: "form-label" %><br>
+      <%= f.date_select :created_at, lang: "en", class: "form-input" %>
+    </div>
     <%= f.submit "Post", class:"form-button" %>
   <% end %>
 <% end %>
@@ -28,15 +32,27 @@
         </div>
         <p class="daypost-content-title">Logs</p>
         <% daypost.each_with_index do |micropost, k| %>
-          <p class="log-content">
-            <%= micropost.order %>. <%= micropost.weight %>kg × <%= micropost.time %> times. <br>
-            <%= micropost.comment %>
-            <% if admin? %>
-              <%= link_to micropost_path(micropost) , method: :delete, data: { confirm: "Are you sure you want to delete this?" }, class: "log-destroy" do %>
-                <i class="far fa-trash-alt"></i>
-              <% end %>
+          <div class="log-content">
+            <div class="log-content-main">
+              <p class="log-weight-time"><%= micropost.order %>. <%= micropost.weight %>kg × <%= micropost.time %> times. </p>
+              <p class="log-links">
+                <% if admin? %>
+                  <%= link_to "/microposts/#{micropost.id}/up" , method: :patch,  class: "log-link" do %>
+                    <i class="far fa-caret-square-up"></i>
+                  <% end %>
+                  <%= link_to "/microposts/#{micropost.id}/down" , method: :patch,  class: "log-link" do %>
+                    <i class="far fa-caret-square-down"></i>
+                  <% end %>
+                  <%= link_to micropost_path(micropost) , method: :delete, data: { confirm: "Are you sure you want to delete this?" }, class: "log-link" do %>
+                    <i class="far fa-trash-alt"></i>
+                  <% end %>
+                <% end %>
+              </p>
+            </div>
+            <% if micropost.comment.size > 0 %>
+              <p class="log-comment">comment: <%= micropost.comment %></p>
             <% end %>
-          </p>
+          </div>
         <% end %>
     </div>
   <% end %>
