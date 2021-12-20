@@ -4,19 +4,34 @@ class MicropostsController < ApplicationController
 
   def index
     @micropost = Micropost.new
-    @dayposts = get_dayposts(Micropost.all)
+    @dayposts = get_dayposts
   end
 
   def create
     @micropost = Micropost.new(micropost_params)
-    order = get_order(Time.zone.now)
+    date = get_date(micropost_params)
+    order = get_next_order(date)
+    @micropost.created_at = date
     @micropost.order = order
-    if @micropost.save
+    if @micropost.save && is_not_future?(@micropost)
       redirect_to root_path
     else
-      @dayposts = get_dayposts(Micropost.all)
+      @dayposts = get_dayposts
       render "index"
     end
+  end
+
+  def update
+    micropost = Micropost.find(params[:id])
+    if params[:direction] == "up"
+      direction = -1
+    elsif params[:direction] == "down"
+      direction = 1
+    else
+      redirect_to root_path
+    end
+    change_order(micropost, direction) if neither_first_nor_last?(micropost, direction)
+    redirect_to root_path
   end
 
   def destroy
@@ -27,7 +42,7 @@ class MicropostsController < ApplicationController
   private
 
     def micropost_params
-      params.require(:micropost).permit(:weight, :time, :comment)
+      params.require(:micropost).permit(:weight, :time, :comment, :created_at)
     end
 
     def check_login
