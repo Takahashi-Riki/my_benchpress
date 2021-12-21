@@ -36,6 +36,7 @@ module SessionHelper
   end
 
   def admin?
+    return false if !sessions_exist?
     Session.find(session[:id]).admin
   end
 
@@ -43,14 +44,5 @@ module SessionHelper
     current_session.destroy if logged_in?
     session.delete(:token)
     session.delete(:id)
-  end
-
-  def get_old_session
-    sessions = Session.all
-    sessions.each do |session|
-      if session.created_at < Time.zone.now.ago(1.days)
-        session.destroy
-      end
-    end
   end
 end

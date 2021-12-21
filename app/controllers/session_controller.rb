@@ -1,7 +1,7 @@
 class SessionController < ApplicationController
   PASSWORD_DIGEST = ENV["PASSWORD_DIGEST"]
   PASSWORD_READONLY_DIGEST = ENV["PASSWORD_READONLY_DIGEST"]
-  #before_action :destroy_old_session, [:new]
+  before_action :destroy_old_session, only: [:new]
   before_action :check_not_login, only: [:new, :create]
 
   def new
@@ -32,6 +32,11 @@ class SessionController < ApplicationController
     end
 
     def destroy_old_session
-      #get_old_session.destroy_all
+      sessions = Session.all
+      sessions.each do |session|
+        if session.created_at < Time.zone.now.ago(1.days)
+          session.destroy
+        end
+      end
     end
 end
