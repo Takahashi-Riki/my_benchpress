@@ -30,12 +30,14 @@ class MicropostsController < ApplicationController
     else
       redirect_to root_path
     end
-    change_order(micropost, direction) if neither_first_nor_last?(micropost, direction)
+    exchange_order(micropost, direction) if neither_first_nor_last?(micropost, direction)
     redirect_to root_path
   end
 
   def destroy
-    Micropost.find(params[:id]).destroy
+    micropost = Micropost.find(params[:id])
+    micropost.destroy
+    move_over_order(micropost)
     redirect_to root_path
   end
 

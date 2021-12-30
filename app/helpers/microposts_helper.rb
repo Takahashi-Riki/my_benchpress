@@ -53,11 +53,19 @@ module MicropostsHelper
     !((micropost == microposts.last && direction == 1) || (micropost == microposts.first && direction == -1))
   end
 
-  def change_order(micropost_specified, direction)
+  def exchange_order(micropost_specified, direction)
     microposts_should_change = get_daypost(micropost_specified.created_at).find_by(order: micropost_specified.order+direction)
     micropost_specified.order += direction
     microposts_should_change.order -= direction
     micropost_specified.save
     microposts_should_change.save
+  end
+
+  def move_over_order(micropost_specified)
+    daypost = get_daypost(micropost_specified.created_at)
+    for micropost in daypost do
+      micropost.order -= 1 if micropost.order > micropost_specified.order
+      micropost.save
+    end
   end
 end
